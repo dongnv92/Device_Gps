@@ -38,7 +38,7 @@
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 14,
-            center: {lat: 21.015726666666666666666666667, lng: 105.77689777777777777777777778}
+            center: {lat: 21.017724444444444444444444444, lng: 105.78064888888888888888888889}
         });
 
         var flightPlanCoordinates = [
