@@ -88,9 +88,9 @@ require_once 'includes/core.php';
 <div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true">
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class=" nav-item"><a href="<?php echo _URL_HOME.'/logout.php'?>"><i class="la la-text-height"></i><span class="menu-title">Xem Định Vị</span></a></li>
-            <li class=" nav-item"><a href="<?php echo _URL_HOME.'/logout.php'?>"><i class="la la-text-height"></i><span class="menu-title">Xem Hành Trình</span></a></li>
-            <li class=" nav-item"><a href="<?php echo _URL_HOME.'/logout.php'?>"><i class="la la-text-height"></i><span class="menu-title">Đăng xuất</span></a></li>
+            <li class=" nav-item"><a href="<?php echo _HOME?>"><i class="la la-map-marker"></i><span class="menu-title">Xem Định Vị</span></a></li>
+            <li class=" nav-item"><a href="<?php echo _HOME.'/history.php'?>"><i class="ft-zoom-in"></i><span class="menu-title">Xem Hành Trình</span></a></li>
+            <li class=" nav-item"><a href="<?php echo _HOME.'/logout.php'?>"><i class="la la-text-height"></i><span class="menu-title">Đăng xuất</span></a></li>
         </ul>
     </div>
 </div>
