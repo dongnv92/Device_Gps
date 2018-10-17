@@ -14,7 +14,7 @@ require_once 'includes/core.php';
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
+    <meta name="description" content="Theo dõi định vị xe của công ty cổ phần bưu chính thành phố">
     <meta name="keywords" content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     <meta name="author" content="PIXINVENT">
     <title><?php echo $admin_title;?></title>
@@ -46,7 +46,7 @@ require_once 'includes/core.php';
                 <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
                 <li class="nav-item">
                     <a class="navbar-brand" href="<?php echo _HOME;?>">
-                        <img class="brand-logo" alt="modern admin logo" src="images/logo.png">
+                        <img class="brand-logo" alt="modern admin logo" src="images/logocitypost.png">
                         <h3 class="brand-text">CITYPOST</h3>
                     </a>
                 </li>
@@ -68,15 +68,12 @@ require_once 'includes/core.php';
                 <ul class="nav navbar-nav float-right">
                     <li class="dropdown dropdown-user nav-item">
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                            <span class="mr-1">Hi,<span class="user-name text-bold-700">Gues</span></span>
+                            <span class="mr-1">Hi,<span class="user-name text-bold-700"><?php echo $user['users_name']?></span></span>
                             <span class="avatar avatar-online"><img src="images/avatar.png" alt="avatar"><i></i></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#"><i class="ft-user"></i> Xem trang cá nhân</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#"><i class="la la-gears"></i> Sửa trang cá nhân</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#"><i class="ft-power"></i> Thoát</a>
+                            <a class="dropdown-item" href="<?php echo _LOGOUT;?>"><i class="ft-power"></i> Thoát</a>
                         </div>
                     </li>
                 </ul>
@@ -90,7 +87,15 @@ require_once 'includes/core.php';
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li class=" nav-item"><a href="<?php echo _HOME?>"><i class="la la-map-marker"></i><span class="menu-title">Xem Định Vị</span></a></li>
             <li class=" nav-item"><a href="<?php echo _HOME.'/history.php'?>"><i class="ft-zoom-in"></i><span class="menu-title">Xem Hành Trình</span></a></li>
-            <li class=" nav-item"><a href="<?php echo _HOME.'/logout.php'?>"><i class="la la-text-height"></i><span class="menu-title">Đăng xuất</span></a></li>
+            <?php if($user['users_role'] == 1){?>
+            <li class=" nav-item">
+                <a href="#"><i class="ft-slack"></i><span class="menu-title" data-i18n="nav.page_layouts.main">Quản Lý Thiết Bị</span></a>
+                <ul class="menu-content">
+                    <li ><a class="menu-item" href="<?php echo _HOME?>/device.php">Danh sách</a></li>
+                </ul>
+            </li>
+            <?php }?>
+            <li class=" nav-item"><a href="<?php echo _LOGOUT;?>"><i class="la la-text-height"></i><span class="menu-title">Đăng xuất</span></a></li>
         </ul>
     </div>
 </div>

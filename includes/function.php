@@ -5,98 +5,6 @@
  * Date: 04/06/2018
  * Time: 15:34
  */
- 
- /*-------------------Start functuon by Mr Phu----------------------------*/ 
-function GetDataByID($field,$query){
-    $result = "";
-    global $connection;
-    if(!$query){
-        return false;
-    }
-    else{
-        $re  = sqlsrv_query($connection, $query);
-        // Debug
-        if($re == FALSE){
-
-            die('error: '.FormatErrors(sqlsrv_errors($connection)));
-        }else{
-            while ($rw = sqlsrv_fetch_object($re)){
-                $result = $rw->$field;
-            }
-        }
-
-    }
-    return $result;
-
-}
-
-function GetMethoByTransID($transID){
-    $method = "";
-    global $connection;
-    if(!$transID){
-        return false;
-    }
-    else{
-        $query  = "SELECT * FROM tblSMSReceive WHERE transID='$transID'";
-        //echo $query;
-        $re  = sqlsrv_query($connection, $query);
-        // Debug
-        if($re == FALSE){
-
-            die('error: '.FormatErrors(sqlsrv_errors($connection)));
-        }else{
-            while ($rw = sqlsrv_fetch_object($re)){
-                $method = $rw->method;
-            }
-        }
-
-    }
-    return $method;
-}
-function InsertData($table, $colum, $data){
-    global $connection;
-    if (!$table || !$data || !$colum) {
-        return false;
-    } else {
-        $query  = "INSERT INTO $table($colum) VALUES($data)";
-        $query  = sqlsrv_query($connection, $query);
-        // Debug
-        if($query == FALSE){
-
-            die('error: '.FormatErrors(sqlsrv_errors($connection)));
-        }else{
-            return true;
-        }
-    }
-
-}
-function updateDataByVar($var,$table,$where)
-{
-    global $connection;
-
-    $result = '';
-    $query = "UPDATE $table SET $var WHERE $where";
-    //echo  $query;
-    $cmd = sqlsrv_query($connection, $query);
-
-    if ($cmd == false) {
-        $result = 'Loi truy van.';
-        die(print_r(sqlsrv_errors(), true));
-    } else {
-        $result = 1;
-    }
-    sqlsrv_close($connection);
-    return $result;
-
-}
-function getTime(){
-    date_default_timezone_set('Asia/Ho_Chi_Minh');
-    $datetime = new DateTime();
-    $time =  $datetime ->getTimestamp();
-    $timeReq = date('Y/m/d H:i:s',$time);
-    return $timeReq;
-}
- /*-------------------End functuon by Mr Phu----------------------------*/
 
 function insertSqlserver($table, $colum, $data){
     global $connection;
@@ -274,4 +182,16 @@ function getCaculatorRoutor($address_start, $address_end){
     $caculator  = json_decode($caculator, true);
     $response   = array('long' => $caculator['routes'][0]['legs'][0]['distance']['text']);
     return $response;
+}
+
+function getApi($action, $param){
+    if(!$action || !$param){
+        return false;
+    }
+    foreach($param as $key => $value){
+        $para[] =  $key ."=".$value;
+    }
+    $para_list  = implode('&', $para);
+    $data       = json_decode(file_get_contents(_URL_API.'/?act='.$action.'&'.$para_list), true);
+    return $data;
 }

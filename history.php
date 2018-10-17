@@ -1,11 +1,16 @@
 <?php
 require_once 'includes/core.php';
 
+if(!$user){
+    header('location:'._LOGIN);
+    exit();
+}
+
 if($_POST['submit']){
     $imei       = isset($_REQUEST['imei'])      && !empty($_REQUEST['imei'])        ? trim($_REQUEST['imei'])   : '';
     $time_start = isset($_REQUEST['time_start'])&& !empty($_REQUEST['time_start'])  ? trim($_REQUEST['time_start'])  : '';
     $time_stop  = isset($_REQUEST['time_stop']) && !empty($_REQUEST['time_stop'])   ? trim($_REQUEST['time_stop'])  : '';
-    $data       = file_get_contents('http://112.78.11.14/api/?act=get_detail&imei='. $imei .'&time_start='. $time_start .'&time_stop='.$time_stop);
+    $data       = file_get_contents('http://112.78.11.14/api/?act=get_detail&imei='. urlencode($imei) .'&time_start='. $time_start .'&time_stop='.$time_stop);
     $data       = json_decode($data, true);
     $waypoints  = array();
     foreach ($data AS $datas){
@@ -20,11 +25,11 @@ if($_POST['submit']){
     $result         = 'Từ <i>'.$address_new['results'][0]['formatted_address'].'</i> Đến <i>'.$address_old['results'][0]['formatted_address'].'</i> dài khoảng '.$caculator['long'];
 }
 
-
 $css_plus = array(
     'app-assets/vendors/css/pickers/daterange/daterangepicker.css',
     'app-assets/vendors/css/pickers/pickadate/pickadate.css',
-    'app-assets/css/plugins/pickers/daterange/daterange.min.css'
+    'app-assets/css/plugins/pickers/daterange/daterange.min.css',
+    'app-assets/css/chosen.css'
 );
 
 $js_plus = array(
@@ -33,8 +38,13 @@ $js_plus = array(
     'app-assets/vendors/js/pickers/pickadate/picker.time.js',
     'app-assets/vendors/js/pickers/pickadate/legacy.js',
     'app-assets/vendors/js/pickers/dateTime/moment-with-locales.min.js',
-    'app-assets/vendors/js/pickers/daterange/daterangepicker.js'
+    'app-assets/vendors/js/pickers/daterange/daterangepicker.js',
+    'app-assets/js/scripts/ui/jquery-ui/autocomplete.js',
+    'app-assets/js/chosen.jquery.js',
+    'app-assets/js/prism.js',
+    'app-assets/js/init.js',
 );
+$admin_title = 'Xem lại hành trình';
 require_once 'header.php';
 ?>
     <div class="row">
@@ -45,19 +55,25 @@ require_once 'header.php';
                         <div class="row">
                             <div class="col">
                                 <fieldset class="form-group">
-                                    <select class="form-control round" name="imei">
-                                        <option value="385811214445073">Citypost</option>
+                                    <select name="imei" data-placeholder="Chọn Một Xe" class="chosen-select-width form-control">
+                                        <option value=""></option>
+                                        <?php
+                                        $truck = json_decode(file_get_contents(_URL_API.'/?act=get_distint'),true);
+                                        foreach ($truck AS $option){
+                                            echo '<option '. ($imei == $option['detail_truck'] ? ' selected="selected" ' : '') .' value="'. $option['detail_truck'] .'">'. $option['detail_truck'] .'</option>';
+                                        }
+                                    ?>
                                     </select>
                                 </fieldset>
                             </div>
                             <div class="col">
                                 <fieldset class="form-group">
-                                    <input type="text" name="time_start" value="<?php echo $time_start?>" class="form-control round pickadate" placeholder="Thời Gian Bắt Đầu" />
+                                    <input type="text" name="time_start" value="<?php echo $time_start ? $time_start : date('Y/m/d', time());?>" class="form-control round pickadate" placeholder="Thời Gian Bắt Đầu" />
                                 </fieldset>
                             </div>
                             <div class="col">
                                 <fieldset class="form-group">
-                                    <input type="text" name="time_stop" value="<?php echo $time_stop?>" class="form-control round pickadate" placeholder="Thời Gian Kết Thúc" />
+                                    <input type="text" name="time_stop" value="<?php echo $time_stop ? $time_stop : date('Y/m/d', time());?>" class="form-control round pickadate" placeholder="Thời Gian Kết Thúc" />
                                 </fieldset>
                             </div>
                             <div class="col text-right">
