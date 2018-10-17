@@ -8,7 +8,7 @@
 session_start();
 error_reporting(0);
 date_default_timezone_set('Asia/Ho_Chi_Minh');
-define('_HOME', 'http://dinhvi.citypost.com.vn');
+define('_HOME', 'http://localhost/dong/Device_Gps');
 define('_LOGIN', _HOME.'/login.php');
 define('_LOGOUT', _HOME.'/logout.php');
 define('_URL_API', 'http://112.78.11.14/api');

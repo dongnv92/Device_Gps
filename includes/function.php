@@ -184,14 +184,18 @@ function getCaculatorRoutor($address_start, $address_end){
     return $response;
 }
 
-function getApi($action, $param){
-    if(!$action || !$param){
+function getApi($action, $param = ''){
+    if(!$action){
         return false;
     }
-    foreach($param as $key => $value){
-        $para[] =  $key ."=".$value;
+    $para_list = '';
+    if(count($param) > 0){
+        foreach($param as $key => $value){
+            $para[] =  $key ."=".$value;
+        }
+        $para_list  .= '&'.implode('&', $para);
     }
-    $para_list  = implode('&', $para);
-    $data       = json_decode(file_get_contents(_URL_API.'/?act='.$action.'&'.$para_list), true);
+
+    $data       = json_decode(file_get_contents(_URL_API.'/?act='.$action.$para_list), true);
     return $data;
 }
