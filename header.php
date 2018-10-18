@@ -59,11 +59,7 @@ require_once 'includes/core.php';
             <div class="collapse navbar-collapse" id="navbar-mobile">
                 <ul class="nav navbar-nav mr-auto float-left">
                     <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"></i></a></li>
-                    <li class="nav-item nav-search"><a class="nav-link nav-link-search" href="#"><i class="ficon ft-search"></i></a>
-                        <div class="search-input">
-                            <input class="input" type="text" placeholder="Tìm kiếm ...">
-                        </div>
-                    </li>
+                    <li class="nav-item nav-search"><a class="nav-link nav-link-search" href="#">CÔNG TY CỔ PHẦN BƯU CHÍNH THÀNH PHỐ</a></li>
                 </ul>
                 <ul class="nav navbar-nav float-right">
                     <li class="dropdown dropdown-user nav-item">
@@ -86,7 +82,8 @@ require_once 'includes/core.php';
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li class=" nav-item"><a href="<?php echo _HOME?>"><i class="la la-map-marker"></i><span class="menu-title">Xem Định Vị</span></a></li>
-            <li class=" nav-item"><a href="<?php echo _HOME.'/history.php'?>"><i class="ft-zoom-in"></i><span class="menu-title">Xem Hành Trình</span></a></li>
+            <li class=" nav-item"><a href="<?php echo _HOME.'/history.php'?>"><i class="ft-map"></i><span class="menu-title">Xem Hành Trình</span></a></li>
+            <li class=" nav-item"><a href="<?php echo _HOME.'/document.php'?>"><i class="ft-info"></i><span class="menu-title">Hướng Dẫn</span></a></li>
             <?php if($user['users_role'] == 1){?>
             <li class=" nav-item">
                 <a href="#"><i class="ft-slack"></i><span class="menu-title" data-i18n="nav.page_layouts.main">Quản Lý Thiết Bị</span></a>

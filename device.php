@@ -16,9 +16,17 @@ switch ($act){
                     $device_truck   = isset($_REQUEST['device_truck'])  && !empty($_REQUEST['device_truck'])    ? trim($_REQUEST['device_truck']) : '';
                     $device_number  = isset($_REQUEST['device_number']) && !empty($_REQUEST['device_number'])   ? trim($_REQUEST['device_number']): '';
                     $device_status  = isset($_REQUEST['device_status']) && !empty($_REQUEST['device_status'])   ? trim($_REQUEST['device_status']): 0;
-                    $uri_update     = _URL_API.'/?act=update_info&imei='.urlencode($device_imei).'&truck='.urlencode($device_truck).'&number='.urlencode($device_number).'&status='.$device_status.'&id='.$id;
-                    echo "$uri_update";
-                    exit();
+                    $data           = array(
+                        'imei'  => $device_imei,
+                        'truck' => $device_truck,
+                        'number'=> $device_number,
+                        'status'=> $device_status,
+                        'id'    => $id
+                    );
+                    $update         = getApi('update_info', $data);
+                    if($update['response'] == 200){
+                        $device = json_decode(file_get_contents(_URL_API.'/?act=get_infomation&imei='. $id .'&type=info_id'), true);
+                    }
                 }
                 break;
             default:

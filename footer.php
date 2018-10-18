@@ -3,7 +3,7 @@
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 <footer class="footer footer-static footer-light navbar-border navbar-shadow">
     <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
-        <span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2018 <a class="text-bold-800 grey darken-2" href="http://citypost.com.vn" target="_blank">CITYPOST.COM.VN </a>, All rights reserved. </span>
+        <span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2018 <a class="text-bold-800 grey darken-2" href="http://citypost.com.vn" target="_blank">CITYPOST.COM.VN </a> Công Ty Cổ Phần Bưu Chính Thành Phố - Tầng 6, Tháp B, Tòa Nhà Sông Đà, đường Phạm Hùng, Nam Từ Niêm, Hà Nội</span>
     </p>
 </footer>
 <!-- BEGIN PAGE VENDOR JS-->

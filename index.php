@@ -12,9 +12,11 @@ if($truck){
     $data_last_online   = file_get_contents('http://112.78.11.14/api/?act=get_infomation&imei='.urlencode($truck).'&type=info_truck');
     $data_last_online   = json_decode($data_last_online, true);
     $address            = getDetailAddress($data_last_location[(count($data_last_location) - 1)]['detail_lat'].','.$data_last_location[(count($data_last_location) - 1)]['detail_lng'], 'latlng');
+    $time_stop          = strtotime($data_last_location[0]['detail_last']['date']) - strtotime($data_last_location[0]['detail_time']['date']);
     $result             = 'Địa chỉ: '.$address['results'][0]['formatted_address'].'<br>';
-    $result            .= 'Thời giân cập nhập lần cuối: '. date('H:i:s d/m/Y', strtotime($data_last_online[0]['info_last_online']['date'])) .'<br>';
-    $result            .= 'Tốc độ: '. $data_last_location[0]['detail_speed'] .' km/h<br>';
+    $result            .= 'Thời gian Dừng: '. convert_seconds($time_stop) .'<br>';
+    $result            .= 'Thời gian cập nhập lần cuối: '. date('H:i:s d/m/Y', strtotime($data_last_online[0]['info_last_online']['date'])) .'<br>';
+    $result            .= 'Tốc độ: '. $data_last_online[0]['info_speed'] .' km/h<br>';
 }
 
 $css_plus = array(
@@ -50,8 +52,7 @@ require_once 'header.php';
                                     <select name="truck" data-placeholder="Chọn Một Xe" class="chosen-select-width form-control">
                                         <option value=""></option>
                                         <?php
-                                        $truck_list = json_decode(file_get_contents(_URL_API.'/?act=get_list_device'),true);
-                                        foreach ($truck_list AS $option){
+                                        foreach (getApi('get_list_device', array('type' => 'active')) AS $option){
                                             echo '<option '. ($truck == $option['info_truck'] ? ' selected="selected" ' : '') .' value="'. $option['info_truck'] .'">'. $option['info_truck'] .'</option>';
                                         }
                                         ?>
@@ -74,22 +75,16 @@ require_once 'header.php';
             <div class="col">
                 <div id="map" style="height: 100%;float: left;width: 100%;height: 800px;"></div>
                 <script>
-                    // This example displays a marker at the center of Australia.
-                    // When the user clicks the marker, an info window opens.
-
                     function initMap() {
                         var uluru = {lat: <?php echo $data_last_location[0]['detail_lat'];?>, lng: <?php echo $data_last_location[0]['detail_lng'];?>};
                         var map = new google.maps.Map(document.getElementById('map'), {
-                            zoom: 10,
+                            zoom: 14,
                             center: uluru
                         });
-
                         var contentString = '<?php echo $result?>';
-
                         var infowindow = new google.maps.InfoWindow({
                             content: contentString
                         });
-
                         var marker = new google.maps.Marker({
                             position: uluru,
                             map     : map,

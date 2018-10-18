@@ -94,7 +94,7 @@ require_once 'header.php';
                 <script>
                     function initMap() {
                         var map = new google.maps.Map(document.getElementById('map'), {
-                            zoom: 10,
+                            zoom: 14,
                             center: <?php echo $data_new?>
                         });
                         var infowindow = new google.maps.InfoWindow({

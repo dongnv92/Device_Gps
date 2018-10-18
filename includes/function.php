@@ -191,11 +191,23 @@ function getApi($action, $param = ''){
     $para_list = '';
     if(count($param) > 0){
         foreach($param as $key => $value){
-            $para[] =  $key ."=".$value;
+            $para[] =  $key ."=".urlencode($value);
         }
         $para_list  .= '&'.implode('&', $para);
     }
 
     $data       = json_decode(file_get_contents(_URL_API.'/?act='.$action.$para_list), true);
     return $data;
+}
+
+function convert_seconds($seconds){
+    $dt1 = new DateTime("@0");
+    $dt2 = new DateTime("@$seconds");
+    if($seconds < 60){
+        return $dt1->diff($dt2)->format('%s Giây');
+    }else if($seconds >= 60 && $seconds < 86400){
+        return $dt1->diff($dt2)->format('%h Giờ, %i Phút, %s Giây');
+    }else if($seconds > 86400){
+        return $dt1->diff($dt2)->format('%a Ngày, %h Giờ, %i Phút, %s Giây');
+    }
 }
